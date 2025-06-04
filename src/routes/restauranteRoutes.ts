@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import restauranteController from "../controllers/restauranteController";
+import restauranteController, { GetRestauranteById } from "../controllers/restauranteController";
 import { validateRestauranteRequest } from "../middleware/validation";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { param } from "express-validator";
@@ -50,4 +50,11 @@ router.get("/search/:city",
     restauranteController.searchRestaurante
 
 );
+
+//Obtener restaurant por Id
+router.get("/:restaurntId",
+    param("restaurantId").isString().trim().notEmpty().withMessage("El parametro debe de ser valido"),
+    GetRestauranteById
+);
+
 export default router;

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import Restaurante from '../models/restauranteModel';
 import cloudinary from 'cloudinary';
 import mongoose from 'mongoose';
+//import { useGetRestaurant } from '../../../frontend/src/api/RestaurantApi';
+//import { Restaurant } from '../../../frontend/src/types';
 
 //Función para obtener los datos de un restaurante
 const getRestaurante = async (req: Request, res: Response) => {
@@ -40,7 +42,7 @@ const createRestaurante = async (req: Request, res: Response) => {
         res.status(201).send(restaurante);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Error al crear el restaurante' })
+        res.status(500).json({ message: 'Error al crear el restaurante',error })
     }
 }//Fin de createRestaurant
 
@@ -182,9 +184,24 @@ const searchRestaurante = async (req: Request, res: Response) => {
     }
 }//Fin de searchRestaurante
 
+//Obtener restaurant por Id
+export const GetRestauranteById = async(req: Request, res:Response):Promise<any>=>{
+    try {
+        const restaurant = await Restaurante.findById(req.params.restauranId);
+        if (!restaurant) {
+            return res.status(404).json({message:'Restaurant no encontrado'})
+        }
+        res.json(restaurant);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:"Error al obtener datos"})
+    }
+}
+
 export default {
     getRestaurante,
     createRestaurante,
     updateRestaurante,
-    searchRestaurante
+    searchRestaurante,
+    GetRestauranteById
 }
