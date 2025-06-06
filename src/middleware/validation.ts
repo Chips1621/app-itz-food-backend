@@ -24,23 +24,23 @@ export const validateUserRequest = [
                     
     body("city").isString()
                         .notEmpty()
-                        .withMessage("La ciudad debe ser string"),   
+                        .withMessage("La dirección debe ser string"),   
                         
     body("country").isString()
                         .notEmpty()
-                        .withMessage("El país debe ser string"),
+                        .withMessage("El encargado debe ser string"),
     handleValidationErrors                                       
 ];//Fin de validateUserRequest
 
 export const validateRestauranteRequest = [
     body("restauranteName").notEmpty()
-        .withMessage("El nombre del restaurante es requerido"),
+        .withMessage("El nombre del es requerido"),
     
     body("city").notEmpty()
-        .withMessage("La ciudad debe ser requerida"),
+        .withMessage("La dirección debe ser requerida"),
 
     body("country").notEmpty()
-        .withMessage("El país es requerido"),
+        .withMessage("El encargado es requerido"),
 
     body("deliveryPrice").isFloat({ min: 0 })
         .withMessage("El precio de entrega debe ser un número positivo"),
@@ -52,15 +52,15 @@ export const validateRestauranteRequest = [
         .withMessage("Los platillos deben ser un arreglo")
         .not()
         .isEmpty()
-        .withMessage("El arreglo de platillos no puede estar vacío"),
+        .withMessage("El tipo de tienda no puede estar vacío"),
         
     body("menuItems").isArray()
         .withMessage("Los platillos deben ser un arreglo"),
 
     body("menuItems.*.name").notEmpty()
-        .withMessage("El nombre del item del menú es requerido"),
+        .withMessage("El nombre del producto es requerido"),
     body("menuItems.*.price").isFloat({ min: 0 })
-        .withMessage("El precio del item del menú es requerido y debe ser un número positivo"),
+        .withMessage("El precio del producto es requerido y debe ser un número positivo"),
     
     
     handleValidationErrors
